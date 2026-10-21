@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderWise Travel — Handcrafted Journeys & Vacation Stays</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0284C7',          // Ocean / Sky blue
+                        'primary-hover': '#0369A1',
+                        'primary-light': '#E0F2FE',
+                        sunset: '#F97316',           // Sunset orange
+                        'sunset-hover': '#EA580C',
+                        'sunset-soft': '#FFF7ED',
+                        coral: '#FB7185',
+                        sand: '#FEF3C7',             // Warm beach sand
+                        'sand-gold': '#F59E0B',
+                        'bg-soft': '#FAFAF9',        // Warm warm-white canvas
+                        'text-dark': '#0F172A',
+                        'text-muted': '#64748B',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        heading: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02)',
+                        'card': '0 12px 30px -4px rgba(15, 23, 42, 0.08), 0 6px 14px -3px rgba(15, 23, 42, 0.04)',
+                        'glow-orange': '0 0 35px -5px rgba(249, 115, 22, 0.45)',
+                        'glow-blue': '0 0 35px -5px rgba(2, 132, 199, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- React 18, React-DOM & Marked (Local First for 100% offline & adblock-safe reliability) -->
+    <script src="/static/react.min.js"></script>
+    <script src="/static/react-dom.min.js"></script>
+    <script src="/static/marked.min.js"></script>
+    
+    <!-- Google Identity Services for Real Google Auth -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <!-- App Custom Styles -->
+    <link rel="stylesheet" href="/static/style.css?v=20">
+</head>
+<body class="bg-[#FAFAF9] text-slate-800 antialiased font-sans min-h-screen">
+    
+    <script>
+        window.GOOGLE_CLIENT_ID = "{{ google_client_id or '' }}";
+        // Server session user injection
+        {% if user %}
+        window.USER_DATA = {
+            name: {{ (user.name or 'Traveler') | tojson }},
+            email: {{ (user.email or '') | tojson }},
+            picture: {{ (user.picture or '') | tojson }},
+            firstName: {{ (user.name.split(' ')[0] if user.name else 'Traveler') | tojson }}
+        };
+        {% else %}
+        window.USER_DATA = null;
+        {% endif %}
+    </script>
+
+    <!-- Mount Root for React application -->
+    <div id="root"></div>
+
+    <!-- Main Precompiled React Application Script -->
+    <script src="/static/bundle.js?v=23"></script>
+</body>
+</html>
