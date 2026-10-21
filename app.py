@@ -1308,6 +1308,11 @@ async def update_budget(data: UpdateBudgetRequest):
 
     outbound_str = data.outbound_flight or data.flight_name or "IRCTC Domestic Flight"
     return_str = data.return_flight or "Booked Domestic Return Flight"
+    return_flight_line = (
+        f"- Return Flight ({(data.destination or 'Destination')} ➔ {(data.source or 'Origin')}): **{return_str}**\n"
+        if data.trip_type == "Round-Trip"
+        else ""
+    )
 
     prompt = f"""You are WanderWise AI, the premier Indian domestic travel assistant.
 The traveler has CONFIRMED and BOOKED their flight tickets on IRCTC Air!
@@ -1339,8 +1344,7 @@ You MUST format your entire response using the EXACT SAME 8 SECTIONS with the ex
      ✅ **CONFIRMED & BOOKED FLIGHTS via IRCTC Air**:
      - Journey Type: **{data.trip_type}**
      - Outbound Flight ({data.source or 'Origin'} ➔ {data.destination}): **{outbound_str}**
-     {"- Return Flight (" + (data.destination or "Destination") + " ➔ " + (data.source or "Origin") + "): **" + return_str + "**\n" if data.trip_type == "Round-Trip" else ""}
-     - Total Airfare Paid: **₹{data.ticket_price:,.0f}**
+     {return_flight_line}     - Total Airfare Paid: **₹{data.ticket_price:,.0f}**
      - Status: **Confirmed & Verified on IRCTC Air**
    - Provide arrival and departure guidance, web check-in tips, and airport transfer directions to the hotel.
 
