@@ -218,7 +218,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 # --- Added: trained analytics models (regenerate via scripts/train_*.py) ---
-analytics/models/*.pkl
+# analytics/models/*.pkl
 
 .env
 
