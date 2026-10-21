@@ -1,14 +1,11 @@
 services:
   - type: web
     name: wanderwise-ai
-    runtime: python
+    runtime: docker
     region: singapore
     plan: free
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    dockerfilePath: ./Dockerfile
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.9
       - key: GROQ_API_KEY
         sync: false
       - key: SESSION_SECRET

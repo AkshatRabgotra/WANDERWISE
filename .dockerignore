@@ -1,7 +1,20 @@
-# Environments
-.venv
-env/
+.git
+.github
+.gitignore
+.dockerignore
+.env
+*.db
+wanderwise.db
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
 venv/
+.venv/
+env/
 ENV/
-env.bak/
-venv.bak/
+*.log
+scratch/
